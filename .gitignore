@@ -1,0 +1,12 @@
+# Build artifacts
+part2-kernel/build/
+part2-kernel/isodir/
+
+# ISO (tracked explicitly — do not ignore)
+# part2-kernel/kernel.iso
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+*.swp
+*~
