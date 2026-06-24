@@ -128,6 +128,3 @@ sha256sum ArielOS-22.1-amd64.iso
 
 *(add after QEMU test)*
 
-## Demo video
-
-*(part of the global 8-min demo — see root README)*
