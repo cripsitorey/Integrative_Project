@@ -26,6 +26,7 @@ Integrative_Project/
 ## How to reproduce each part
 
 ### Part 1 — Distro (Cubic)
+See [part1-distro/README.md](part1-distro/README.md) for full details.
 
 ### Part 2 — 64-bit Kernel
 
