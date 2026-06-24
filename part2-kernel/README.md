@@ -59,4 +59,8 @@ sha256sum kernel.iso
 
 ## Boot screenshot
 
+![GorillaOS booting in QEMU](screenshots/boot.png)
+
 ## Demo video
+
+[Ver demo en Google Drive](https://drive.google.com/file/d/1-k4CJegrZY8deVP0cjKlI9kYhoRH4Lob/view?usp=sharing)
