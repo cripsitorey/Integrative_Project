@@ -203,12 +203,17 @@ exit
 
 | What | File / screenshot |
 |---|---|
-| `make deploy` / `make init` output | `capturas/01-deploy.png` |
-| `tail -f /var/log/lab-install.log` | `capturas/02-install-log.png` |
-| `make test` = Lab is up | `capturas/03-make-test.png` |
-| `docker ps` (8 containers) | `capturas/04-docker-ps.png` |
-| `ip addr \| grep br_` | `capturas/05-ip-addr.png` |
-| `docker exec` into p-web-01 | `capturas/06-docker-exec.png` |
+<img width="1806" height="330" alt="image" src="https://github.com/user-attachments/assets/ccd95cf0-a3fe-4e43-8eaa-667c9861a700" />
+
+<img width="1466" height="120" alt="image" src="https://github.com/user-attachments/assets/78d22772-8241-4264-ada3-c8a607b20b26" />
+
+<img width="1448" height="378" alt="image" src="https://github.com/user-attachments/assets/f8927266-21ec-48e0-acb0-dcb71258178f" />
+
+<img width="1806" height="976" alt="image" src="https://github.com/user-attachments/assets/3beb6b8b-09dc-4f9f-95f6-afbc639129c8" />
+<img width="1808" height="1378" alt="image" src="https://github.com/user-attachments/assets/5a9d4f47-fff9-414c-8ca1-de1d91a80e45" />
+
+<img width="1812" height="164" alt="image" src="https://github.com/user-attachments/assets/13325210-4231-4f13-99a4-5a195792e6fa" />
+
 
 ---
 
@@ -327,8 +332,6 @@ sudo make rebuild
 Tip from the book: snapshot the Kali VM while the lab is clean, so you can roll back after the
 attacks leave it in a broken state.
 
-## Screenshoots
-<img width="1464" height="158" alt="image" src="https://github.com/user-attachments/assets/fdf001ce-7acc-4abd-8b9c-c0328d2397a0" />
 
-<img width="1466" height="186" alt="image" src="https://github.com/user-attachments/assets/16687cee-423a-476c-a295-ac4169148064" />
+
 
