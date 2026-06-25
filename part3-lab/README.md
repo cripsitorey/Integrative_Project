@@ -203,12 +203,17 @@ exit
 
 | What | File / screenshot |
 |---|---|
-| `make deploy` / `make init` output | `capturas/01-deploy.png` |
-| `tail -f /var/log/lab-install.log` | `capturas/02-install-log.png` |
-| `make test` = Lab is up | `capturas/03-make-test.png` |
-| `docker ps` (8 containers) | `capturas/04-docker-ps.png` |
-| `ip addr \| grep br_` | `capturas/05-ip-addr.png` |
-| `docker exec` into p-web-01 | `capturas/06-docker-exec.png` |
+<img width="1806" height="330" alt="image" src="https://github.com/user-attachments/assets/ccd95cf0-a3fe-4e43-8eaa-667c9861a700" />
+
+<img width="1466" height="120" alt="image" src="https://github.com/user-attachments/assets/78d22772-8241-4264-ada3-c8a607b20b26" />
+
+<img width="1448" height="378" alt="image" src="https://github.com/user-attachments/assets/f8927266-21ec-48e0-acb0-dcb71258178f" />
+
+<img width="1806" height="976" alt="image" src="https://github.com/user-attachments/assets/3beb6b8b-09dc-4f9f-95f6-afbc639129c8" />
+<img width="1808" height="1378" alt="image" src="https://github.com/user-attachments/assets/5a9d4f47-fff9-414c-8ca1-de1d91a80e45" />
+
+<img width="1812" height="164" alt="image" src="https://github.com/user-attachments/assets/13325210-4231-4f13-99a4-5a195792e6fa" />
+
 
 ---
 
@@ -301,13 +306,13 @@ Result / interpretation: _(fill in)_ — per finding: what the template caught a
 
 ### Evidence (3.B)
 
-| Step | File / screenshot |
-|---|---|
-| Port scan | `evidencia/nmap-p-web-01.txt` · `capturas/10-nmap.png` |
-| WhatWeb | `evidencia/whatweb-p-web-01.txt` · `capturas/11-whatweb.png` |
-| dirsearch | `evidencia/dirsearch-p-web-01.txt` · `capturas/12-dirsearch.png` |
-| FTP anon | `evidencia/ftp-anon-p-ftp-01.txt` · `capturas/13-ftp.png` |
-| Nuclei | `evidencia/nuclei-p-web-01.txt` · `capturas/14-nuclei.png` |
+<img width="1818" height="1030" alt="image" src="https://github.com/user-attachments/assets/98207ffd-fe2d-4e44-a00f-8f9e1a3a1b3c" />
+<img width="1806" height="200" alt="image" src="https://github.com/user-attachments/assets/357d9dd6-a34e-4926-b54b-03db4f6a23d8" />
+<img width="1804" height="904" alt="image" src="https://github.com/user-attachments/assets/b96e19b2-21be-484b-8228-7d77121c5c92" />
+<img width="1818" height="344" alt="image" src="https://github.com/user-attachments/assets/bb647ca3-547c-40d2-bb53-5a0f464d2f86" />
+<img width="1810" height="1238" alt="image" src="https://github.com/user-attachments/assets/1a8aad96-e144-443f-bc39-30c2880d7c6d" />
+
+
 
 ---
 
@@ -327,10 +332,9 @@ sudo make rebuild
 Tip from the book: snapshot the Kali VM while the lab is clean, so you can roll back after the
 attacks leave it in a broken state.
 
-## Team & roles
 
-| Member | Role |
-|---|---|
-| _(name)_ | _(e.g. lab deploy & verification)_ |
-| _(name)_ | _(e.g. recon chain & interpretation)_ |
-| _(name)_ | _(e.g. documentation & video)_ |
+## Video
+
+https://drive.google.com/drive/quota
+<img width="1806" height="440" alt="image" src="https://github.com/user-attachments/assets/810f120b-d260-43f1-8147-ae74a2e932e8" />
+
