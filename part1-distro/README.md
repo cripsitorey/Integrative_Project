@@ -118,3 +118,8 @@ part1/
 
 The ISO itself isn't committed (it's well over the repo size limit). The checksum
 and a download link cover it instead.
+
+LINK FOR ISO IMAGE:
+#--------------------
+https://drive.google.com/drive/folders/1dsihNjzLFlg39A40Ll6vUsG4zfX91qqw?usp=drive_link
+#--------------------
