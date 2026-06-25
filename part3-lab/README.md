@@ -306,13 +306,12 @@ Result / interpretation: _(fill in)_ — per finding: what the template caught a
 
 ### Evidence (3.B)
 
-| Step | File / screenshot |
-|---|---|
-| Port scan | `evidencia/nmap-p-web-01.txt` · `capturas/10-nmap.png` |
-| WhatWeb | `evidencia/whatweb-p-web-01.txt` · `capturas/11-whatweb.png` |
-| dirsearch | `evidencia/dirsearch-p-web-01.txt` · `capturas/12-dirsearch.png` |
-| FTP anon | `evidencia/ftp-anon-p-ftp-01.txt` · `capturas/13-ftp.png` |
-| Nuclei | `evidencia/nuclei-p-web-01.txt` · `capturas/14-nuclei.png` |
+<img width="1818" height="1030" alt="image" src="https://github.com/user-attachments/assets/98207ffd-fe2d-4e44-a00f-8f9e1a3a1b3c" />
+<img width="1806" height="200" alt="image" src="https://github.com/user-attachments/assets/357d9dd6-a34e-4926-b54b-03db4f6a23d8" />
+<img width="1804" height="904" alt="image" src="https://github.com/user-attachments/assets/b96e19b2-21be-484b-8228-7d77121c5c92" />
+<img width="1818" height="344" alt="image" src="https://github.com/user-attachments/assets/bb647ca3-547c-40d2-bb53-5a0f464d2f86" />
+
+
 
 ---
 
