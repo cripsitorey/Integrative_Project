@@ -1,134 +1,120 @@
-# Part 1 — Custom Distro with Cubic
+# ReconBox Linux — Part 1
 
-Reference: [How to Create a Custom Linux Distro with Cubic](https://www.youtube.com/watch?v=zlInz7c83K8) · [Cubic on GitHub](https://github.com/PJ-Singh-001/Cubic)
+A custom Ubuntu 24.04 LTS live ISO I built with Cubic for Part 1 of the UIDE
+Integrative Project. The goal was a base image that's already set up the way I
+work: a privacy browser instead of Firefox, a configured editor, the recon CLI
+tools I keep reaching for, and a dark desktop that any new account gets by
+default. It doubles as a warm-up for the offensive lab in Part 3.
 
-## One-line build
+## What's under the hood
 
-> Cubic is a GUI tool — run it inside Ubuntu or Linux Mint (bare metal or VM).
-
-```bash
-sudo apt-add-repository ppa:cubic-wizard/release && sudo apt update && sudo apt install cubic -y
-```
-
-Then launch:
-
-```bash
-cubic
-```
-
-## Repository structure
-
-```
-part1-distro/
-├── README.md                        # This file
-├── chroot-setup.sh                  # All chroot commands applied inside Cubic
-├── skel/
-│   └── .config/
-│       ├── nvim/
-│       │   └── init.vim             # Neovim config deployed to /etc/skel
-│       └── gtk-3.0/
-│           └── settings.ini         # GTK dark theme deployed to /etc/skel
-└── screenshots/
-    ├── 01-boot-screen.png
-    ├── 02-desktop.png
-    ├── 03-librewolf.png
-    ├── 04-neovim.png
-    └── 05-dark-theme.png
-```
-
-## Base ISO
-
-| Field | Value |
-|-------|-------|
-| Base distro | Linux Mint 22.1 Cinnamon (64-bit) |
-| Original ISO | `linuxmint-22.1-cinnamon-64bit.iso` |
-| Custom ISO | `ArielOS-22.1-amd64.iso` |
-| Cubic version | 2026.06.105 |
+| Item | Value |
+|------|-------|
+| Base ISO | Ubuntu 24.04.4 LTS Desktop (Noble Numbat), amd64 |
+| Tool | Cubic (Custom Ubuntu ISO Creator) |
+| Build host | Ubuntu 24.04 running inside QEMU/KVM |
+| Output ISO | `ReconBox-24.04-amd64.iso` |
 | Compression | XZ |
 
-## Modifications (inside Cubic chroot)
+I went with 24.04 on purpose. The newest LTS, 26.04, had only been out a couple
+of months when I started this, it's Wayland-only now, and Cubic has a track
+record of choking on freshly released Ubuntu images for the first while. Noble is
+boring in the good way: the Cubic repo is built and tested against it, so nothing
+fights back.
 
-### 1 — Firefox → LibreWolf
+## How to reproduce it
 
-```bash
-add-apt-repository ppa:mozillateam/ppa -y
-apt update
-apt remove --purge firefox -y
-apt install librewolf -y
-```
+You need an Ubuntu 24.04 host with roughly 15 GB free. A VM is fine, that's what
+I used.
 
-**Why:** LibreWolf is a hardened Firefox fork with no telemetry, no sponsored content, and uBlock Origin pre-installed. It replaces a proprietary-leaning default with a fully free-software alternative.
+1. Install Cubic:
+   ```bash
+   sudo apt-add-repository universe
+   sudo apt-add-repository ppa:cubic-wizard/release
+   sudo apt update
+   sudo apt install --no-install-recommends cubic
+   ```
+2. Launch Cubic, point it at an empty project folder, and select the Ubuntu
+   24.04.4 desktop ISO as the base. Fill in the distro name and the version/volume
+   label.
+3. When Cubic drops you into its virtual terminal (that's a chroot straight into
+   the live filesystem), paste in `customize.sh` and run it. That one script
+   applies every modification listed below.
+4. Back in Cubic, choose XZ on the compression page and generate the ISO.
+5. Make a checksum so the file can be verified later:
+   ```bash
+   sha256sum ReconBox-24.04-amd64.iso > ReconBox-24.04-amd64.iso.sha256
+   ```
+6. Boot-test it in QEMU (commands further down).
 
----
+## The modifications, and why
 
-### 2 — Neovim pre-installed + skel config
+| # | Change | Why I made it |
+|---|--------|---------------|
+| 1 | mpv replaces Totem (GNOME Videos) | Totem is the stock player. mpv is lighter, scriptable, and still fully free software, so it's a better fit for a lean build. |
+| 2 | Brave added from its official APT repo and set as the default browser | This is also my "add an external repository" change. I went for LibreWolf first, but their repo server was down during the build, so I switched to Brave: a privacy-focused, Chromium-based, open-source browser that ships from a reliable S3-backed repo. |
+| 3 | Neovim (with a config) plus nmap, net-tools, dnsutils, curl, git, tmux preinstalled | The recon tools I'll use in Part 3 are already here, and Neovim ships configured instead of bare. |
+| 4 | Dark theme set as the system default through a gschema override | I wanted dark mode to be the actual default for everyone, not something each user has to enable. |
 
-```bash
-apt install neovim -y
-mkdir -p /etc/skel/.config/nvim
-cat > /etc/skel/.config/nvim/init.vim << 'VIMEOF'
-set number
-set tabstop=4
-set shiftwidth=4
-set expandtab
-syntax on
-VIMEOF
-```
+## Making it stick: /etc/skel and gschema
 
-**Why:** Neovim is a lightweight keyboard-driven editor standard in developer environments. Placing the config in `/etc/skel` ensures every new user account inherits it automatically.
+The rubric cares about customization being the *default*, not just something you
+can toggle. Two mechanisms handle that:
 
----
+- **`/etc/skel`** is the template Linux copies into a new home directory the
+  moment an account is created, live-session user included. Whatever I drop in
+  there (`.bash_aliases`, the Neovim config under `.config/nvim/`, a
+  `mimeapps.list` pinning LibreWolf, and a `Welcome.txt`) every new user inherits
+  automatically. That's the difference between a real default and a setting I'd
+  have to redo on every machine.
+- **gschema override**: a `90_reconbox-defaults.gschema.override` file in
+  `/usr/share/glib-2.0/schemas/`, compiled with `glib-compile-schemas`. It
+  rewrites the baked-in defaults for `org.gnome.desktop.interface`, so a brand
+  new login lands in dark mode straight away. Setting it through the Settings app
+  would only last the current session and vanish on the next live boot.
 
-### 3 — Mint-Y-Dark theme as system default
-
-```bash
-mkdir -p /etc/skel/.config/gtk-3.0
-cat > /etc/skel/.config/gtk-3.0/settings.ini << 'GTKEOF'
-[Settings]
-gtk-application-prefer-dark-theme=1
-gtk-theme-name=Mint-Y-Dark
-gtk-icon-theme-name=Mint-Y-Dark
-GTKEOF
-```
-
-**Why:** The default Mint theme applies only to the live session. Writing to `/etc/skel` makes the dark theme permanent for every user created after installation.
-
----
-
-## Build flow
-
-```
-Base ISO (Linux Mint 22.1 Cinnamon)
-  └─ Cubic: extract squashfs
-        ├─ chroot terminal  ←  run chroot-setup.sh
-        │    ├─ [1/3] add PPA → remove Firefox → install LibreWolf
-        │    ├─ [2/3] install Neovim → write /etc/skel/.config/nvim/init.vim
-        │    └─ [3/3] write /etc/skel/.config/gtk-3.0/settings.ini
-        └─ Cubic: repack squashfs (XZ) → generate ISO
-                        │
-                        ▼
-              ArielOS-22.1-amd64.iso
-                        │
-                        ▼
-        qemu-system-x86_64 -m 2048 -cdrom ArielOS-22.1-amd64.iso -boot d
-```
-
-## Test in QEMU
+## Testing in QEMU
 
 ```bash
-qemu-system-x86_64 -m 2048 -cdrom ArielOS-22.1-amd64.iso -boot d
+qemu-system-x86_64 \
+  -enable-kvm -m 4096 -smp 2 -cpu host \
+  -cdrom ReconBox-24.04-amd64.iso \
+  -boot d -vga virtio -display gtk
 ```
 
-## ISO download & checksum
+No disk is attached on purpose. Booting the ISO on its own, in a clean session,
+is what proves the changes are baked into the image and not leftovers from a
+machine I'd already touched. Cubic's own "Test" button does the same thing if you
+prefer clicking.
 
-> The ISO exceeds GitHub's file size limit.  
-> **Download:** *(add Google Drive / MEGA link here)*
+## Screenshots
+
+All images live in `images/`.
+
+| Evidence | File | Rubric criterion |
+|----------|------|------------------|
+| Cubic start page with the base ISO and distro name | `images/01-cubic-base.png` | Base used |
+| `customize.sh` running in the Cubic terminal | `images/02-cubic-chroot.png` | Modifications applied |
+| Compression page with XZ selected | `images/03-cubic-xz.png` | Build config |
+| ISO generated successfully | `images/04-iso-generated.png` | Bootable ISO |
+| `sha256sum` of the ISO | `images/05-checksum.png` | Checksum |
+| QEMU booting ReconBox (GRUB / splash) | `images/06-qemu-boot.png` | Bootable ISO |
+| Live desktop in dark mode (clean session) | `images/07-dark-default.png` | Persistent gschema default |
+| `which mpv brave-browser nvim nmap` in the live session | `images/08-tools-present.png` | Modifications applied |
+| New user inherits skel (aliases / nvim / Welcome.txt) | `images/09-skel-newuser.png` | Persistent skel default |
+
+## Repo layout
 
 ```
-sha256sum ArielOS-22.1-amd64.iso
-(paste output here after generating)
+part1/
+├── README.md
+├── customize.sh
+├── ReconBox-24.04-amd64.iso.sha256
+└── images/
+    ├── 01-cubic-base.png
+    ├── ...
+    └── 09-skel-newuser.png
 ```
 
-## Boot screenshot
-
-*(add after QEMU test)*
+The ISO itself isn't committed (it's well over the repo size limit). The checksum
+and a download link cover it instead.
