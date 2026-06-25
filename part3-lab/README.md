@@ -310,6 +310,7 @@ Result / interpretation: _(fill in)_ — per finding: what the template caught a
 <img width="1806" height="200" alt="image" src="https://github.com/user-attachments/assets/357d9dd6-a34e-4926-b54b-03db4f6a23d8" />
 <img width="1804" height="904" alt="image" src="https://github.com/user-attachments/assets/b96e19b2-21be-484b-8228-7d77121c5c92" />
 <img width="1818" height="344" alt="image" src="https://github.com/user-attachments/assets/bb647ca3-547c-40d2-bb53-5a0f464d2f86" />
+<img width="1810" height="1238" alt="image" src="https://github.com/user-attachments/assets/1a8aad96-e144-443f-bc39-30c2880d7c6d" />
 
 
 
@@ -332,5 +333,6 @@ Tip from the book: snapshot the Kali VM while the lab is clean, so you can roll 
 attacks leave it in a broken state.
 
 
+## Video
 
 
