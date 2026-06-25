@@ -327,10 +327,4 @@ sudo make rebuild
 Tip from the book: snapshot the Kali VM while the lab is clean, so you can roll back after the
 attacks leave it in a broken state.
 
-## Team & roles
-
-| Member | Role |
-|---|---|
-| _(name)_ | _(e.g. lab deploy & verification)_ |
-| _(name)_ | _(e.g. recon chain & interpretation)_ |
-| _(name)_ | _(e.g. documentation & video)_ |
+## Screenshoots
