@@ -328,3 +328,7 @@ Tip from the book: snapshot the Kali VM while the lab is clean, so you can roll 
 attacks leave it in a broken state.
 
 ## Screenshoots
+<img width="1464" height="158" alt="image" src="https://github.com/user-attachments/assets/fdf001ce-7acc-4abd-8b9c-c0328d2397a0" />
+
+<img width="1466" height="186" alt="image" src="https://github.com/user-attachments/assets/16687cee-423a-476c-a295-ac4169148064" />
+
